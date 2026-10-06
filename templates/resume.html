@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <section class="text-center mb-5">
+        <h1>Моє резюме</h1>
+
+        <img src="{{ url_for('static', filename='images/photo.jpg') }}"
+             alt="Моє фото"
+             class="profile-photo">
+
+        <p class="lead mt-3">
+            Студентка спеціальності «Інженерія програмного забезпечення»
+        </p>
+    </section>
+
+
+    <section id="about" class="resume-section">
+        <h2>Про себе</h2>
+        <p>
+            Я студентка, яка цікавиться програмуванням,
+            веброзробкою та створенням програмних систем.
+            Вивчаю різні технології та працюю над навчальними проєктами.
+        </p>
+    </section>
+
+
+    <section id="education" class="resume-section">
+        <h2>Освіта</h2>
+        <p>
+            Карпатський національний університет
+            імені Василя Стефаника.
+        </p>
+        <p>
+            Спеціальність — Інженерія програмного забезпечення.
+        </p>
+    </section>
+
+
+    <section id="skills" class="resume-section">
+        <h2>Навички</h2>
+
+        <ul>
+            <li>Основи програмування</li>
+            <li>Розробка вебсторінок</li>
+            <li>Робота з базами даних</li>
+            <li>Git та GitHub</li>
+            <li>Робота з Flask</li>
+        </ul>
+    </section>
+
+
+    <section id="technologies" class="resume-section">
+        <h2>Технології</h2>
+
+        <ul>
+            <li>Python</li>
+            <li>Flask</li>
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>JavaScript</li>
+            <li>SQL</li>
+            <li>Git</li>
+            <li>GitHub</li>
+        </ul>
+    </section>
+
+
+    <section id="projects" class="resume-section">
+        <h2>Досвід роботи та проекти</h2>
+
+        <p>
+            У межах навчання виконувала практичні та лабораторні
+            роботи з програмування, веброзробки та баз даних.
+        </p>
+
+        <ul>
+            <li>Flask вебзастосунок</li>
+            <li>Проекти на Python</li>
+            <li>Проекти з базами даних</li>
+        </ul>
+    </section>
+
+</div>
+
+{% endblock %}
