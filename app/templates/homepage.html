@@ -1,0 +1,65 @@
+```html
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-5">
+
+    <h1 class="text-center mb-3">Лабораторна робота №3</h1>
+
+    <p class="text-center lead mb-4">
+        Модульна структура Flask. Blueprints
+    </p>
+
+    <hr>
+
+    <h2>Основні сторінки</h2>
+    <p><a href="{{ url_for('home') }}">Головна сторінка</a></p>
+    <p><a href="{{ url_for('contacts') }}">Контакти</a></p>
+
+    <hr>
+
+    <h2>Робота з користувачами</h2>
+    <p>
+        <a href="{{ url_for('users.greetings', name='John', age=30) }}">
+            Привітання John
+        </a>
+    </p>
+
+    <p>
+        <a href="{{ url_for('users.admin') }}">
+            Перенаправлення адміністратора
+        </a>
+    </p>
+
+    <hr>
+
+    <h2>Робота з товарами</h2>
+
+    <p>
+        <a href="{{ url_for('products.list_products') }}">
+            Переглянути всі товари
+        </a>
+    </p>
+
+    <p>
+        <a href="{{ url_for('products.detail_product', product_id=1) }}">
+            Детальна інформація про товар №1
+        </a>
+    </p>
+
+    <p>
+        <a href="{{ url_for('products.detail_product', product_id=2) }}">
+            Детальна інформація про товар №2
+        </a>
+    </p>
+
+    <p>
+        <a href="{{ url_for('products.detail_product', product_id=3) }}">
+            Детальна інформація про товар №3
+        </a>
+    </p>
+
+</div>
+{% endblock %}
+```
+
