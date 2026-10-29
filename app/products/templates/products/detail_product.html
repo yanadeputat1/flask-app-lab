@@ -2,20 +2,56 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container mt-4">
-    <h1>{{ product.name }}</h1>
+<div class="container py-5">
+    <div class="card mx-auto" style="max-width: 700px;">
+        {% if product.image %}
+            <img
+                src="{{ url_for('products.uploaded_file', filename=product.image.split('/')[-1]) }}"
+                class="card-img-top"
+                alt="{{ product.name }}"
+                style="max-height: 350px; object-fit: contain;"
+            >
+        {% else %}
+            <div class="card-body text-center text-muted">
+                Зображення відсутнє
+            </div>
+        {% endif %}
 
-    <p>{{ product.content }}</p>
+        <div class="card-body">
+            <h1 class="card-title">{{ product.name }}</h1>
 
-    <p>
-        <strong>Ціна: {{ product.price }} $</strong>
-    </p>
+            <p class="card-text">{{ product.content }}</p>
 
-    <p>Ідентифікатор товару: {{ product.id }}</p>
+            <p>
+                <strong>Ціна:</strong>
+                {{ "%.2f"|format(product.price) }} $
+            </p>
 
-    <a href="{{ url_for('products.list_products') }}"
-       class="btn btn-secondary">
-        Назад до товарів
-    </a>
+            <p>
+                <strong>Категорія:</strong>
+                {{ product.category }}
+            </p>
+
+            <p>
+                <strong>Кількість:</strong>
+                {{ product.quantity }}
+            </p>
+
+            <p>
+                <strong>Ідентифікатор:</strong>
+                {{ product.id }}
+            </p>
+
+            <p>
+                <strong>Дата створення:</strong>
+                {{ product.created_at }}
+            </p>
+
+            <a href="{{ url_for('products.list_products') }}"
+               class="btn btn-secondary">
+                Назад до товарів
+            </a>
+        </div>
+    </div>
 </div>
 {% endblock %}

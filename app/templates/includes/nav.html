@@ -3,7 +3,7 @@
     <div class="container">
 
         <a class="navbar-brand" href="{{ url_for('home') }}">
-            Лабораторна робота №3
+            Лабораторна робота №4
         </a>
 
         <button class="navbar-toggler"
@@ -26,8 +26,26 @@
                 </li>
 
                 <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('resume') }}">
+                        Резюме
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('contacts') }}">
                         Контакти
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('users.login') }}">
+                        Вхід
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('users.profile') }}">
+                        Профіль
                     </a>
                 </li>
 

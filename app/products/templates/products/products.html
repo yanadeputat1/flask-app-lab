@@ -5,10 +5,28 @@
 <div class="container mt-4">
     <h1 class="mb-4">Наші товари</h1>
 
+    <a href="{{ url_for('products.add_product') }}" class="btn btn-primary mb-3">
+        Додати товар
+    </a>
+
     <div class="row">
         {% for product in products %}
         <div class="col-md-4 mb-4">
             <div class="card h-100">
+
+                {% if product.image %}
+                    <img
+                        src="{{ url_for('products.uploaded_file', filename=product.image.split('/')[-1]) }}"
+                        class="card-img-top"
+                        alt="{{ product.name }}"
+                        style="height: 200px; width: 100%; object-fit: contain;"
+                    >
+                {% else %}
+                    <div class="text-center text-muted p-4">
+                        Зображення відсутнє
+                    </div>
+                {% endif %}
+
                 <div class="card-body">
                     <h5 class="card-title">{{ product.name }}</h5>
 
@@ -17,15 +35,41 @@
                     </p>
 
                     <p>
-                        <strong>Ціна: {{ product.price }} $</strong>
+                        <strong>
+                            Ціна: {{ "%.2f"|format(product.price) }} $
+                        </strong>
                     </p>
 
-                    <a href="{{ url_for('products.detail_product', product_id=product.id) }}"
-                       class="btn btn-primary">
+                    <a
+                        href="{{ url_for('products.detail_product', product_id=product.id) }}"
+                        class="btn btn-primary mb-2"
+                    >
                         Детальніше
                     </a>
+
+                    <a
+                        href="{{ url_for('products.edit_product', product_id=product.id) }}"
+                        class="btn btn-warning mb-2"
+                    >
+                        Редагувати
+                    </a>
+
+                    <form
+                        method="POST"
+                        action="{{ url_for('products.delete_product', product_id=product.id) }}"
+                        style="display: inline;"
+                        onsubmit="return confirm('Ви справді хочете видалити цей товар?');"
+                    >
+                        <button type="submit" class="btn btn-danger mb-2">
+                            Видалити
+                        </button>
+                    </form>
                 </div>
             </div>
+        </div>
+        {% else %}
+        <div class="col-12">
+            <p class="text-muted">Товарів поки немає.</p>
         </div>
         {% endfor %}
     </div>

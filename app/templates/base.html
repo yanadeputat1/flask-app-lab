@@ -11,16 +11,63 @@
 
     <!-- Власний CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+
+    <style>
+        body {
+            background-color: #ffffff;
+            color: #212529;
+        }
+    
+        body.dark-theme {
+            background-color: #212529;
+            color: #f8f9fa;
+        }
+    
+        body.dark-theme main {
+            color: #f8f9fa;
+        }
+    
+        body.dark-theme .table {
+            --bs-table-color: #f8f9fa;
+            --bs-table-bg: #343a40;
+            --bs-table-border-color: #6c757d;
+        }
+    
+        body.dark-theme .form-control {
+            background-color: #343a40;
+            color: #f8f9fa;
+            border-color: #6c757d;
+        }
+    </style>
+    
 </head>
 
-<body>
+
+<body class="{% if request.cookies.get('theme') == 'dark' %}dark-theme{% else %}light-theme{% endif %}">
 
     {% include 'includes/nav.html' %}
 
-    <main>
-        {% block content %}
-        {% endblock %}
-    </main>
+    
+
+<main>
+    <div class="container mt-3">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for category, message in messages %}
+                <div class="alert {% if category == 'error' %}alert-danger{% elif category == 'success' %}alert-success{% else %}alert-info{% endif %} alert-dismissible fade show"
+                     role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close"
+                            data-bs-dismiss="alert"
+                            aria-label="Закрити"></button>
+                </div>
+            {% endfor %}
+        {% endwith %}
+    </div>
+
+    {% block content %}
+    {% endblock %}
+</main>
+
 
     {% include 'includes/footer.html' %}
 

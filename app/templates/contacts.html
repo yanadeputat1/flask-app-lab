@@ -1,55 +1,26 @@
-{% extends 'base.html' %}
+
+{% extends "base.html" %}
+{% from "macros.html" import render_field %}
 
 {% block content %}
+<div class="container mt-4">
+    <h1>Контакти</h1>
 
-<div class="container py-5">
+    <h2>Зв'язатися зі мною</h2>
 
-    <h1 class="text-center mb-5">Контакти</h1>
+    <p>Email: example@gmail.com</p>
+    <p>Телефон: +380 XX XXX XX XX</p>
 
-    <section class="contact-section">
+    <form method="POST">
+        {{ form.hidden_tag() }}
 
-        <h2>Зв'язатися зі мною</h2>
+        {{ render_field(form.name) }}
+        {{ render_field(form.email) }}
+        {{ render_field(form.phone) }}
+        {{ render_field(form.subject) }}
+        {{ render_field(form.message) }}
 
-        <p>Email: example@gmail.com</p>
-        <p>Телефон: +380 XX XXX XX XX</p>
-
-        <form>
-
-            <div class="mb-3">
-                <label for="name" class="form-label">Ім'я</label>
-                <input type="text"
-                       class="form-control"
-                       id="name"
-                       name="name"
-                       placeholder="Введіть ваше ім'я">
-            </div>
-
-            <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email"
-                       class="form-control"
-                       id="email"
-                       name="email"
-                       placeholder="Введіть ваш email">
-            </div>
-
-            <div class="mb-3">
-                <label for="message" class="form-label">Повідомлення</label>
-                <textarea class="form-control"
-                          id="message"
-                          name="message"
-                          rows="5"
-                          placeholder="Введіть повідомлення"></textarea>
-            </div>
-
-            <button type="submit" class="btn btn-primary">
-                Надіслати
-            </button>
-
-        </form>
-
-    </section>
-
+        {{ form.submit(class="btn btn-primary") }}
+    </form>
 </div>
-
 {% endblock %}
