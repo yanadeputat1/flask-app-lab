@@ -1,0 +1,85 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-5">
+    <h1>Редагувати товар</h1>
+
+    <form method="POST" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+
+        <div class="mb-3">
+            {{ form.name.label(class="form-label") }}
+            {{ form.name(class="form-control") }}
+            {% for error in form.name.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="mb-3">
+            {{ form.content.label(class="form-label") }}
+            {{ form.content(class="form-control", rows="5", cols="40") }}
+            {% for error in form.content.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="mb-3">
+            {{ form.price.label(class="form-label") }}
+            {{ form.price(class="form-control") }}
+            {% for error in form.price.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="mb-3">
+            {{ form.category.label(class="form-label") }}
+            {{ form.category(class="form-select") }}
+            {% for error in form.category.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="mb-3">
+            {{ form.quantity.label(class="form-label") }}
+            {{ form.quantity(class="form-control") }}
+            {% for error in form.quantity.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Поточне зображення</label>
+
+            {% if product.image %}
+                <div>
+                    <img
+                        src="{{ url_for('products.uploaded_file', filename=product.image.split('/')[-1]) }}"
+                        alt="{{ product.name }}"
+                        style="max-width: 200px; max-height: 200px; object-fit: contain;"
+                    >
+                </div>
+            {% else %}
+                <p class="text-muted">Зображення відсутнє</p>
+            {% endif %}
+        </div>
+
+        <div class="mb-3">
+            {{ form.image.label(class="form-label") }}
+            {{ form.image(class="form-control", accept=".png,.jpg,.jpeg") }}
+            <small class="form-text text-muted">
+                Якщо не вибрати нове зображення, залишиться поточне.
+                Дозволені формати: PNG, JPG, JPEG. Максимум 5 МБ.
+            </small>
+            {% for error in form.image.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        {{ form.submit(class="btn btn-primary") }}
+
+        <a href="{{ url_for('products.list_products') }}"
+           class="btn btn-secondary">Назад</a>
+    </form>
+</div>
+{% endblock %}
