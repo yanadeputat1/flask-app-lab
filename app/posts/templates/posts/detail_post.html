@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-body">
+            <h2>{{ post.title }}</h2>
+
+            <p>{{ post.content }}</p>
+
+            <hr>
+
+            <p>
+                <strong>Категорія:</strong>
+                {{ post.category.value }}
+            </p>
+
+            <p>
+                <strong>Автор:</strong>
+                {{ post.author }}
+            </p>
+
+            <p>
+                <strong>Дата публікації:</strong>
+                {{ post.posted.strftime('%d.%m.%Y %H:%M') }}
+            </p>
+
+            <p>
+                <strong>Статус:</strong>
+                {% if post.is_active %}
+                    Активний
+                {% else %}
+                    Неактивний
+                {% endif %}
+            </p>
+
+            <a href="{{ url_for('posts.update_post', post_id=post.id) }}"
+               class="btn btn-warning">
+                Редагувати
+            </a>
+
+            <a href="{{ url_for('posts.delete_post', post_id=post.id) }}"
+               class="btn btn-danger">
+                Видалити
+            </a>
+
+            <a href="{{ url_for('posts.all_posts') }}"
+               class="btn btn-secondary">
+                До всіх дописів
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
