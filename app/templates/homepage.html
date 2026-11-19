@@ -1,0 +1,21 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Лабораторна робота №5</h1>
+
+    <h2 class="mt-4">Навігація</h2>
+
+    <ul>
+        <li><a href="{{ url_for('home') }}">Головна</a></li>
+        <li><a href="{{ url_for('resume') }}">Резюме</a></li>
+        <li><a href="{{ url_for('contacts') }}">Контакти</a></li>
+        <li><a href="{{ url_for('users.login') }}">Вхід</a></li>
+        <li><a href="{{ url_for('users.profile') }}">Профіль</a></li>
+        <li><a href="{{ url_for('products.list_products') }}">Товари</a></li>
+    </ul>
+
+ 
+</div>
+{% endblock %}

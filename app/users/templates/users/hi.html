@@ -1,0 +1,28 @@
+
+{% extends "base.html" %}
+
+{% block title %}Привітання{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Привіт, {{ name }}!</h1>
+
+    {% if age %}
+        <p>Твій вік: {{ age }}</p>
+    {% endif %}
+
+    <div class="row mt-4">
+        <div class="col-md-3">
+            <nav class="nav flex-column">
+                <a class="nav-link" href="{{ url_for('home') }}">Головна</a>
+                <a class="nav-link" href="{{ url_for('users.greetings', name='John', age=30) }}">Привітання</a>
+                <a class="nav-link" href="{{ url_for('users.admin') }}">Адміністратор</a>
+            </nav>
+        </div>
+
+        <div class="col-md-9">
+            <p>Це сторінка модуля користувачів.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
