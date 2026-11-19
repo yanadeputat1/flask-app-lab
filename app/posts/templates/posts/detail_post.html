@@ -1,23 +1,44 @@
+
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container mt-4">
-    <div class="card">
-        <div class="card-body">
-            <h2>{{ post.title }}</h2>
 
-            <p>{{ post.content }}</p>
+<div class="container mt-4 mb-5">
+
+    <div class="card shadow">
+
+        <div class="card-body p-4">
+
+            {% if post.image %}
+                <div class="text-center mb-4">
+                    <img
+                        src="{{ url_for('static', filename='uploads/posts/' + post.image) }}"
+                        alt="{{ post.title }}"
+                        style="width: 550px; height: 350px; object-fit: cover; border-radius: 10px;"
+                    >
+                </div>
+            {% endif %}
+
+            <h2 class="card-title mb-3">
+                {{ post.title }}
+            </h2>
+
+            <p class="card-text">
+                {{ post.content }}
+            </p>
 
             <hr>
 
             <p>
                 <strong>Категорія:</strong>
-                {{ post.category.value }}
+                <span class="badge bg-info text-dark">
+                    {{ post.category.value }}
+                </span>
             </p>
 
             <p>
                 <strong>Автор:</strong>
-                {{ post.author }}
+                {{ post.user.username if post.user else "Без автора" }}
             </p>
 
             <p>
@@ -28,11 +49,36 @@
             <p>
                 <strong>Статус:</strong>
                 {% if post.is_active %}
-                    Активний
+                    <span class="badge bg-success">Активний</span>
                 {% else %}
-                    Неактивний
+                    <span class="badge bg-secondary">Неактивний</span>
                 {% endif %}
             </p>
+
+            <hr>
+
+            <div class="mb-4">
+                <h5 class="mb-3">Теги допису:</h5>
+
+                {% if post.tags %}
+                    {% set colors = [
+                        'bg-primary',
+                        'bg-success',
+                        'bg-danger',
+                        'bg-warning text-dark',
+                        'bg-info text-dark',
+                        'bg-secondary'
+                    ] %}
+
+                    {% for tag in post.tags %}
+                        <span class="badge {{ colors[loop.index0 % colors|length] }} me-2 mb-2 p-2">
+                            #{{ tag.name }}
+                        </span>
+                    {% endfor %}
+                {% else %}
+                    <span class="text-muted">Теги не додані</span>
+                {% endif %}
+            </div>
 
             <a href="{{ url_for('posts.update_post', post_id=post.id) }}"
                class="btn btn-warning">
@@ -48,7 +94,9 @@
                class="btn btn-secondary">
                 До всіх дописів
             </a>
+
         </div>
     </div>
 </div>
+
 {% endblock %}

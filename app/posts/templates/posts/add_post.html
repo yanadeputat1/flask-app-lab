@@ -1,21 +1,38 @@
+
 {% extends "base.html" %}
+
 {% from "macros.html" import render_field %}
 
 {% block content %}
+
 <div class="container mt-4">
+
     <h2>{{ title }}</h2>
 
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data">
+
         {{ form.hidden_tag() }}
 
         {{ render_field(form.title) }}
+
         {{ render_field(form.content) }}
+
+        {{ render_field(form.image) }}
+
         {{ render_field(form.publish_date) }}
+
         {{ render_field(form.category) }}
 
+        {{ render_field(form.author) }}
+
+        {{ render_field(form.tags) }}
+
         <div class="form-check mb-3">
+
             {{ form.enabled(class="form-check-input") }}
+
             {{ form.enabled.label(class="form-check-label") }}
+
         </div>
 
         {{ form.submit(class="btn btn-primary") }}
@@ -24,6 +41,9 @@
            class="btn btn-secondary">
             Назад
         </a>
+
     </form>
+
 </div>
+
 {% endblock %}

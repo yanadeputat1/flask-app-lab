@@ -1,16 +1,22 @@
+
 from flask_wtf import FlaskForm
+
 from wtforms import (
     StringField,
     TextAreaField,
     SelectField,
+    SelectMultipleField,
     BooleanField,
     SubmitField
 )
+
 from wtforms.fields import DateTimeLocalField
 from wtforms.validators import DataRequired, Length, Optional
+from flask_wtf.file import FileField
 
 
 class PostForm(FlaskForm):
+
     title = StringField(
         "Заголовок",
         validators=[
@@ -25,6 +31,8 @@ class PostForm(FlaskForm):
             DataRequired(message="Введіть текст допису")
         ]
     )
+
+    image = FileField("Фотографія допису")
 
     enabled = BooleanField("Активний допис")
 
@@ -43,6 +51,18 @@ class PostForm(FlaskForm):
             ("other", "Інше")
         ],
         validators=[DataRequired()]
+    )
+
+    author = SelectField(
+        "Автор допису",
+        coerce=int,
+        validators=[DataRequired()]
+    )
+
+    tags = SelectMultipleField(
+        "Теги",
+        coerce=int,
+        validators=[Optional()]
     )
 
     submit = SubmitField("Зберегти")

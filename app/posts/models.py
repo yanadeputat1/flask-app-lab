@@ -1,3 +1,4 @@
+
 from datetime import datetime
 from enum import Enum
 
@@ -11,12 +12,45 @@ class PostCategory(Enum):
     OTHER = "other"
 
 
+# Проміжна таблиця для зв'язку Many-to-Many
+post_tags = db.Table(
+    "post_tags",
+    db.Column(
+        "post_id",
+        db.Integer,
+        db.ForeignKey("post.id"),
+        primary_key=True
+    ),
+    db.Column(
+        "tag_id",
+        db.Integer,
+        db.ForeignKey("tags.id"),
+        primary_key=True
+    )
+)
+
+
 class Post(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(
+        db.Integer,
+        primary_key=True
+    )
 
-    title = db.Column(db.String(150), nullable=False)
+    title = db.Column(
+        db.String(150),
+        nullable=False
+    )
 
-    content = db.Column(db.Text, nullable=False)
+    content = db.Column(
+        db.Text,
+        nullable=False
+    )
+
+    # Назва файлу фотографії
+    image = db.Column(
+        db.String(255),
+        nullable=True
+    )
 
     posted = db.Column(
         db.DateTime,
@@ -42,10 +76,22 @@ class Post(db.Model):
         nullable=False
     )
 
-    author = db.Column(
-        db.String(20),
-        default="Anonymous",
-        nullable=False
+    # Зв'язок Post → User
+    user_id = db.Column(
+        db.Integer,
+        db.ForeignKey("users.id")
+    )
+
+    user = db.relationship(
+        "User",
+        back_populates="posts"
+    )
+
+    # Зв'язок Post ↔ Tag
+    tags = db.relationship(
+        "Tag",
+        secondary=post_tags,
+        back_populates="posts"
     )
 
     def __repr__(self):

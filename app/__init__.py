@@ -18,23 +18,18 @@ def create_app(config_name=None):
 
     app.config.from_object(config[config_name])
 
-    # Обмеження розміру запиту — 6 МБ
+    # Увімкнення журналювання SQL-запитів
+    app.config["SQLALCHEMY_ECHO"] = True
+
     app.config["MAX_CONTENT_LENGTH"] = 6 * 1024 * 1024
 
-    # Підключення SQLAlchemy
     db.init_app(app)
-
-    # Підключення Flask-WTF CSRF
     csrf.init_app(app)
-
-    # Підключення Flask-Migrate
     migrate.init_app(app, db)
 
-    # Реєстрація основних маршрутів
     from app.views import register_routes
     register_routes(app)
 
-    # Реєстрація Blueprints
     from app.users import users
     from app.products import products
     from app.posts import post_bp
@@ -43,10 +38,10 @@ def create_app(config_name=None):
     app.register_blueprint(products)
     app.register_blueprint(post_bp)
 
-    # Імпорт моделі для Flask-Migrate
     from app.posts.models import Post
+    from app.users.models import User
+    from app.tags.models import Tag
 
-    # Обробка завеликого запиту
     @app.errorhandler(413)
     def request_entity_too_large(error):
         flash(
