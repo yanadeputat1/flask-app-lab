@@ -1,0 +1,35 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h2>Видалення допису</h2>
+
+    <p>
+        Ви впевнені, що хочете видалити допис
+        <strong>{{ post.title }}</strong>?
+    </p>
+
+    <form method="POST"
+          action="{{ url_for('posts.delete_post', post_id=post.id) }}">
+
+        <input type="hidden"
+               name="csrf_token"
+               value="{{ csrf_token() }}">
+
+        <button type="submit" class="btn btn-danger">
+            Так, видалити
+        </button>
+
+        <a href="{{ url_for('posts.detail_post', post_id=post.id) }}"
+           class="btn btn-secondary">
+            Скасувати
+        </a>
+
+    </form>
+
+</div>
+
+{% endblock %}

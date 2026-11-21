@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+    <h1>Реєстрація</h1>
+
+    <form method="POST">
+        {{ form.hidden_tag() }}
+
+        <div>
+            {{ form.username.label }}
+            {{ form.username(class="form-control") }}
+
+            {% for error in form.username.errors %}
+                <div class="error">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </div>
+
+        <div>
+            {{ form.email.label }}
+            {{ form.email(class="form-control") }}
+
+            {% for error in form.email.errors %}
+                <div class="error">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </div>
+
+        <div>
+            {{ form.password.label }}
+            {{ form.password(class="form-control") }}
+
+            {% for error in form.password.errors %}
+                <div class="error">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </div>
+
+        <div>
+            {{ form.submit(class="btn") }}
+        </div>
+    </form>
+
+    <p>
+        Вже маєте акаунт?
+        <a href="{{ url_for('users.login') }}">Увійти</a>
+    </p>
+</div>
+
+{% endblock %}

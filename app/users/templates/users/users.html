@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Користувачі{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Список користувачів</h1>
+
+    <div class="alert alert-info">
+        Загальна кількість користувачів: <strong>{{ users|length }}</strong>
+    </div>
+
+    {% if users %}
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Ім'я користувача</th>
+                        <th>Електронна пошта</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <td>{{ user.id }}</td>
+                            <td>{{ user.username }}</td>
+                            <td>{{ user.email }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="alert alert-warning">
+            Зареєстрованих користувачів поки немає.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
