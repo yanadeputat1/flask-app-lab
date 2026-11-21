@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Мій профіль{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h1 class="mb-4">Мій профіль</h1>
+
+            <p><strong>Ім'я користувача:</strong> {{ user.username }}</p>
+            <p><strong>Електронна пошта:</strong> {{ user.email }}</p>
+
+            <a href="{{ url_for('users.users_list') }}"
+               class="btn btn-primary">
+                Список користувачів
+            </a>
+
+            <a href="{{ url_for('users.logout') }}"
+               class="btn btn-danger">
+                Вийти
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

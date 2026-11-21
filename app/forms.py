@@ -7,14 +7,16 @@ from wtforms import (
     SelectField,
     DecimalField,
     IntegerField,
-    FileField
+    FileField,
+    PasswordField
 )
 from wtforms.validators import (
     DataRequired,
     Email,
     Length,
     NumberRange,
-    Regexp
+    Regexp,
+    ValidationError
 )
 
 
@@ -138,5 +140,65 @@ class ProductForm(FlaskForm):
     )
 
     image = FileField("Зображення товару")
-
     submit = SubmitField("Зберегти товар")
+
+
+class RegistrationForm(FlaskForm):
+    username = StringField(
+        "Ім'я користувача",
+        validators=[
+            DataRequired(message="Введіть ім'я користувача."),
+            Length(
+                min=3,
+                max=100,
+                message="Ім'я користувача має містити від 3 до 100 символів."
+            )
+        ]
+    )
+
+    email = StringField(
+        "Електронна пошта",
+        validators=[
+            DataRequired(message="Введіть електронну пошту."),
+            Email(message="Введіть правильну електронну пошту.")
+        ]
+    )
+
+    password = PasswordField(
+        "Пароль",
+        validators=[
+            DataRequired(message="Введіть пароль."),
+            Length(
+                min=6,
+                max=100,
+                message="Пароль має містити від 6 до 100 символів."
+            )
+        ]
+    )
+
+    submit = SubmitField("Зареєструватися")
+
+    def validate_username(self, username):
+        from app.users.models import User
+
+        existing_user = User.query.filter_by(
+            username=username.data
+        ).first()
+
+        if existing_user:
+            raise ValidationError(
+                "Це ім'я користувача вже зареєстроване."
+            )
+
+    def validate_email(self, email):
+        from app.users.models import User
+
+        existing_user = User.query.filter_by(
+            email=email.data
+        ).first()
+
+        if existing_user:
+            raise ValidationError(
+                "Ця електронна пошта вже зареєстрована."
+            )
+
